@@ -1,9 +1,9 @@
 # 송현우
 > 
 ## 📱 Contact
-- 이메일: bnbmm@naver.com
-- 블로그: https://velog.io/@shwsvelog
-- 깃헙: https://github.com/SHWsgithub
+- email: dev.hw.song@gmail.com
+- blog: https://velog.io/@shwsvelog
+- github: https://github.com/SHWsgithub
 
 </br>
 
