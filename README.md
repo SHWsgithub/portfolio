@@ -31,5 +31,5 @@
 >- 신고된 게시물과 채팅을 처리할 수 있습니다.  
 >- 1:1 문의에 응답할 수 있습니다.
 >
->[프로젝트 상세 설명](https://github.com/codestates-seb/seb41_main_024)
+>[프로젝트 상세 설명](https://github.com/SHWsgithub/portfolio/blob/main/Ngether.md)
 ---
