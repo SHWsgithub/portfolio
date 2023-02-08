@@ -40,7 +40,7 @@
 >개발 기간: 22.12.15 ~ 2023.1.2  
 >팀 구성: FE - 3명, BE - 3명
 >
->[프로젝트 레포지토리](https://github.com/codestates-seb/seb41_main_024](https://github.com/codestates-seb/seb41_pre_030)
+>[프로젝트 레포지토리](https://github.com/codestates-seb/seb41_pre_030)
 >  
 >기술 스택:  
 >React 18.2, redux 4.2  
