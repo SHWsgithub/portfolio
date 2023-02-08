@@ -16,10 +16,10 @@
 - 팀 구성: FE - 4명, BE - 3명
 - 담당 기능
   -  실시간 채팅 기능 (WebSocket)
-  -  채팅 알람
   -  관리자 페이지 UI 및 기능 구현
 - 추가 구현
   -  엑세스 토큰 유효성 관리를 위한 함수화
+  -  회원가입 폼 제작
   -  회원가입 페이지 이메일 인증
 
 </br>
@@ -56,15 +56,10 @@
 
 </br>
 
-## 4. 구현 기능
->프로젝트에서 실시간 채팅과 관리자 페이지 구현을 담당했습니다.  
->
+## 4. 핵심 구현 기능
 >실시간 채팅은 유저가 모집글을 작성하거나, 모집글에서 참여할 때 입장됩니다.  
 >채팅방 내부에서 모집글 완료, 강퇴, 신고 등의 처리를 할 수 있습니다.  
 >채팅방 내부에서 볼 수 있는 UI들은 각 이벤트에 맞춰 최신화 되기 때문에 퇴장, 강퇴, 신고 등에 따라 실시간으로 업데이트 됩니다.
->
->관리자는 접수된 신고, 1:1 문의 등을 관리자 페이지에서 처리할 수 있습니다.  
->신고 열람시 한 페이지 내에서 유저 정지처리, 신고 반려등을 할 수 있습니다.
 
 <details>
 <summary><b>실시간 채팅 핵심 기능</b></summary>
@@ -96,19 +91,54 @@
   
 </div>
 </details>
+
+</br>
+
+## 5. 트러블 슈팅
 <details>
-<summary><b>관리자 페이지 기능</b></summary>
+<summary>MUI에서 테일윈드 css가 제대로 작동하지 않던 문제</summary>
 <div markdown="1">
-
-## 1. 전체 흐름
-
   
+  - MUI의 컴포넌트를 주어진 property나 sx가 아닌 더 효율성있게 수정하길 원했습니다.  
+>        - MUI 컴포넌트에 className으로 테일윈드의 방식을 적용했지만 일부 css들이 작동하지 않아 지체됐습니다.  
+>        - 이는 별도의 config 설정(preflight) 및 MUI의 StyledEngineProvider를 통해 해결했습니다.    
+        - https://github.com/vercel/next.js/discussions/32565  
+        - https://levelup.gitconnected.com/using-material-ui-with-next-js-13-and-tailwind-css-41c201855dcf  
+        
 </div>
 </details>
 
 
+<details>
+<summary>Client에서 채팅 페이지를 나갈시 서버의 세션ID가 null로 치환되지 않던 문제</summary>
+<div markdown="1">
+  
+  - Websocket의 subscribe를 끊어주는 코드가 필요했습니다.  
+>        - 세션ID가 null로 변해야 전송된 채팅을 읽은 유저와 안 읽은 유저로 나눠 읽음처리를 할 수 있었습니다.  
+>        - useEffet에 return으로 익명함수를 넣어 웹소켓 클라이언트를 disconnect 시켜 해결했습니다.
+</div>
+</details>
+<details>
+<summary>채팅 송수신 시 UI</summary>
+<div markdown="1">
+  
+  - 새로운 메세지로 상태가 변경될 때 채팅 풍선 element가 생성은 되지만 직접 스크롤을 내려야 했습니다.  
+>        - 채팅 아래에 별도의 div를 만들어 useRef로 참조했습니다.  
+>        - 메세지 상태가 변경될 때마다 scrollIntoView 메소드로 가장 아래로 이동하게 해 더 나은 유저 경험을 만들었습니다.        
+</div>
+</details> 
+<details>
+<summary>채팅 알람 구현</summary>
+<div markdown="1">
+  
+  - 채팅 알람을 구현하기 위해 고안한 첫 번째 방법은 롱 폴링이었습니다.  
+    (로그인 시 롱 폴링 재귀함수 실행, 서버에서 connection을 5초간 유지 -> 안읽은 메세지 없을 시 time out 에러, 있을 시 true 리턴)  
+>        - 처음엔 롱폴링을 _app.tsx에서 호출하여 Context로 메세지 탭을 담은 컴포넌트로 보냈습니다.  
+>        - 롱폴링을 통한 알람은 성공적이었으나 서버의 db connection에 부하가 왔고, 팀원들과 회의한 결과 db connection을 늘리는 것은 근본적인 해결이 아니라고 결정했습니다.  
+>        - 따라서 매 페이지 이동 시 롱폴링에서 보냈던 요청을 실행하고 서버에서는 connection을 없앤 후 즉시 리턴을 받는 방식으로 전환했습니다.        
+</div>
+</details> 
 
-</br>
 
 ## 회고 / 느낀점
 >프로젝트 개발 회고 글: 
