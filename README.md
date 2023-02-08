@@ -1,4 +1,6 @@
 # 송현우
+배움의 즐거움을 알며, 커뮤니케이션을 즐기는 개발자 송현우입니다.  
+
 ## 📱 Contact
 - email: dev.hw.song@gmail.com
 - blog: https://velog.io/@shwsvelog
