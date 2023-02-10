@@ -141,4 +141,4 @@
 
 
 ## 회고 / 느낀점
->프로젝트 개발 회고 글: 
+>프로젝트 개발 회고 글: https://velog.io/@shwsvelog/Codestates-Main-Project-%ED%9A%8C%EA%B3%A0-Ngether
